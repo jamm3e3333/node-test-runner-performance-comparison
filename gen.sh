@@ -5,7 +5,7 @@ rm -f mocha/suite.*.test.ts
 rm -f vitest/suite.*.test.ts
 rm -f node-test-runner/suite.*.test.ts
 
-sed -i "" "/^import '.\/suite.*.test.ts';/d" node-test-runner/setup.ts
+sed -i "" "/^import '.\/suite.*.test';/d" node-test-runner/setup.ts
 
 echo "SUIT_COUNT: $SUIT_COUNT"
 
@@ -19,6 +19,6 @@ do
    lastImport=$(grep "^import " node-test-runner/setup.ts | tail -n1)
    escapedImport=$(echo "$lastImport" | sed 's/[&/\]/\\&/g')  # Escape the special characters in the line
    sed -i "" "/^${escapedImport}$/a\\
-import './suite.${N}.test.ts';
+import './suite.${N}.test';
 " node-test-runner/setup.ts
 done

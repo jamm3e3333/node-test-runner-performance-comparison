@@ -7,13 +7,15 @@ export default () => {
 
     const start = perf.now();
     const cpuUsage = process.cpuUsage()
+
+    
     process.nextTick(() => {
       const current = process.memoryUsage();
       for (const key in current) {
         memStats[key] = Math.max(memStats[key] ?? 0, current[key as keyof ReturnType<typeof process.memoryUsage>]);
       }
     });
-  
+    
     process.on("exit", () => {
       logger.info({
         memStats,
